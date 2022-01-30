@@ -3,7 +3,7 @@
   <head>
     <meta charset = "UTF-8">
     <title>Registration</title>
-    <link rel = "stylesheet" href = "css/style.css"> 
+    <link rel = "stylesheet" href = "public/css/style.css"> 
   </head>
   <body>
     <div id = "head-bar">
@@ -13,10 +13,10 @@
       <h8>Advising Pathways</h8>
     </div>
     <div class = "main-page">
-        <img src = "E:\College Files\GT Files\Fall 2021\CS3311&LMC3432\GT Login System\image\sting.jpg" alt = "Gatech sting" id = "sting">
+        <img src = "public\image\sting.jpg" alt = "Gatech sting" id = "sting">
         <h1>Create an Advising Pathways account</h1>
       <form>
-        <script type = "text/javascript" src = "js/register.js"></script>
+        <script type = "text/javascript" src = "public/js/register.js"></script>
         <h2>Username</h2>
         <input type = "userInput" name = "username" class = "user-name">
         <h4>Email</h4>
@@ -25,7 +25,7 @@
         <input type = "rgUserPW" name = "password" class = "pass-word">
         <h5>Confirm Password</h5>
         <input type = "confirmPW" name = "cPassword" class = "c-pass-word">
-        <input type = "button" onclick = "newuser(form)" name = "login" class = "rglgButton rglgClicked" value = "Register and Login">
+        <input type = "button" onclick = "newuser(form)" id = "login" class = "rglgButton rglgClicked" value = "Register and Login">
         <input type = "button" onclick = "window.location.href='index.html'" name = "register" class = "cancelButton cancelClicked" value = "Cancel">
       </form>
       <div class = "forget2">
