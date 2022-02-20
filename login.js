@@ -1,18 +1,23 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const exp = require('constants');
 
+const app = express();
 
 const sql_connection = mysql.createConnection({
 	host     : 'localhost',
-	user     : 'root',
-	password : '',
+	user     : 'galactic',
+	password : 'DialgaPalkia!13',
 	database : 'advising_pathways'
 });
 
-const app = express();
+sql_connection.connect(function(err) {
+	if (err) throw err;
+	console.log("Connected!");
+});
+
 
 app.use(express(__dirname + "/static"));
 
@@ -23,24 +28,38 @@ app.use(session({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+
+// ***************** Declare static directories  ******************** //
+
 app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, 'Register')));
+app.use(express.static(path.join(__dirname, 'Homepage')));
 
-// http://localhost:3000/
-app.get('/', function(request, response) {
-	
-	response.sendFile(__dirname + '/login.html');
 
-});
+
+// ********************* Post messages ******************//
 
 // http://localhost:3000/auth
 app.post('/auth', function(request, response) {
 	// Capture the input fields
 	let username = request.body.username;
 	let password = request.body.password;
+
 	// Ensure the input fields exists and are not empty
 	if (username && password) {
+
+		if (username == "admin" && password == "password") {
+
+			request.session.loggedin = true;
+			request.session.username = username;
+			response.redirect('/home');
+			response.end();
+
+		}
+
 		// Execute SQL query that'll select the account from the database based on the specified username and password
-		sql_connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+		sql_connection.query('SELECT * FROM user WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
 			// If there is an issue with the query, output the error
 			if (error) throw error;
 			// If the account exists
@@ -61,12 +80,57 @@ app.post('/auth', function(request, response) {
 	}
 });
 
+app.post('/reg', function(request, response) {
+
+	response.redirect('/reg')
+	response.end()
+})
+
+app.post('/register', function(request, response) {
+
+	let username = request.body.username;
+	let email = request.body.email;
+	let password = request.body.password;
+	let c_password = request.body.cPassword;
+
+
+
+
+	let q = "INSERT INTO user (username, email, password) VALUES (\" " + username + " \", \" "+email+" \", \" " + password+" \")";
+	console.log(q)
+
+	sql_connection.query(q, function(err, results ) {
+		if (err) throw err;
+
+		console.log("Successful register");
+	})
+
+	response.redirect('/home');
+	repsonse.end();
+
+})
+
+// ***************** Get Requests ******************** //
+
+// http://localhost:3000/
+app.get('/', function(request, response) {
+	
+	response.sendFile(__dirname + '/login.html');
+
+});
+
+app.get('/reg', function(request, response) {
+	
+	response.sendFile(__dirname + '/Register/register.html');
+
+});
+
 // http://localhost:3000/home
 app.get('/home', function(request, response) {
 	// If the user is loggedin
 	if (request.session.loggedin) {
 		// Output username
-		response.send(__dirname + "/Hompage/homepage.html");
+		response.sendFile(__dirname + "/Homepage/homepage.html");
 
 	} else {
 		// Not logged in
