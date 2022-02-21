@@ -116,4 +116,4 @@ CREATE TABLE scheduled_appointment (
 );
 
 
-
+INSERT into user VALUES ('admin', "", "Team", "Galactic", 0, 0, "DialgaPalkia$13")
