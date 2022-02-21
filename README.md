@@ -11,6 +11,22 @@ Questions regarding IP should be directed to Amanda Girard at amanda.girard@lmc.
 
 # Release Notes
 
+## Version v0.2.0
+
+### Features
+
+- Login functionality fully implemented with SQL database
+- Advising appointment scheduling linked to homepage
+- Full user registration functionality
+
+### Bug Fixes
+
+- N/A
+
+### Known Issues
+
+- None
+
 ## Version v0.1.0
 
 ### Features
