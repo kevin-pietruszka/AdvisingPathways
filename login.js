@@ -76,6 +76,9 @@ app.post('/register', function(request, response) {
 
 	let username = request.body.username;
 	let email = request.body.email;
+	// TODO redesign page to allow
+	// let fname = request.body.firstname;
+	// let lname = request.body.lastname;
 	let password = request.body.password;
 	let c_password = request.body.cPassword;
 
@@ -84,32 +87,44 @@ app.post('/register', function(request, response) {
 	if (password == c_password) {
 
 		sql_connection.query('SELECT username, email FROM user WHERE username = ? OR email = ?', [username, email], function(error, results, fields) {
+
 			if (error) throw error;
 			
 			if (results.length > 0 ) {
+
 				response.send("Username or email alreadt exist, try again.");
 
 			} else {
 
-				let q = "INSERT INTO user (username, email, password) VALUES (\" " + username + " \", \" "+email+" \", \" " + password+" \")";
+				let values = '\"' + username + '\", \"' + email + '\", \"test\", \"test\", 1, 0, \"' + password + "\"";
+				let q = "INSERT INTO user VALUES ("+ values + ")";
 				console.log(q)
 
 				sql_connection.query(q, function(err, results ) {
+					
 					if (err) throw err;
 
 					console.log("Successful register");
+
 				})
 
+				request.session.loggedin = true;
+				request.session.username = username;
 				response.redirect('/home');
 
 			}
 		})
 
 	} else {
+
 		response.send("Passwords do not match!");
-		response.end();
+
 	}
 
+})
+
+app.post("/signup",  function(request, response) {
+	response.redirect("/reg")
 })
 
 // ***************** Get Requests ******************** //
@@ -130,7 +145,11 @@ app.get('/reg', function(request, response) {
 // http://localhost:3000/home
 app.get('/home', function(request, response) {
 	
-	response.sendFile(__dirname + "/Homepage/homepage.html");
+	if (request.session.loggedin) {
+		response.sendFile(__dirname + "/Homepage/homepage.html");
+	} else {
+		response.send("Please login in to view page");
+	}
 
 });
 

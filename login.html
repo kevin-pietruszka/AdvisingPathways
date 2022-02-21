@@ -3,18 +3,20 @@
   <head>
     <meta charset = "UTF-8">
     <title>Gatech Advising System Login</title>
-    <link href="/style.css"" rel = "stylesheet" href = "/static/style.css" type="text/css"> 
+    <link href="/style.css"" rel = "stylesheet" href = "style.css" type="text/css"> 
   </head>
 
   <body>
     <div id = "head-bar">
       <h7>Georgia Tech</h7>
     </div>
+
     <div id = "page-title">
       <h8>Advising Pathways</h8>
     </div>
+    
     <div class = "main-page">
-        <img src = "/static/sting.jpg" alt = "Gatech sting" id = "sting">
+        <img src = "sting.jpg" alt = "Gatech sting" id = "sting">
         <h1>Enter your Advising Pathways Username and Password</h1>
 
       <form action="/auth" method="post">
@@ -26,8 +28,8 @@
         <input type = "submit" name = "login" class = "lgButton lgClicked" value = "Login">
 
       </form>
-      
-      <form action="/reg" method="post">
+
+      <form action="/signup" method="post">
         <input type = "submit" name = "register" class = "rgButton rgClicked" value = "Register">
       </form>
 
