@@ -18,7 +18,6 @@ sql_connection.connect(function(err) {
 	console.log("Connected!");
 });
 
-
 app.use(express(__dirname + "/static"));
 
 app.use(session({
@@ -36,8 +35,6 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(path.join(__dirname, 'Register')));
 app.use(express.static(path.join(__dirname, 'Homepage')));
 
-
-
 // ********************* Post messages ******************//
 
 // http://localhost:3000/auth
@@ -48,15 +45,6 @@ app.post('/auth', function(request, response) {
 
 	// Ensure the input fields exists and are not empty
 	if (username && password) {
-
-		if (username == "admin" && password == "password") {
-
-			request.session.loggedin = true;
-			request.session.username = username;
-			response.redirect('/home');
-			response.end();
-
-		}
 
 		// Execute SQL query that'll select the account from the database based on the specified username and password
 		sql_connection.query('SELECT * FROM user WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
@@ -71,20 +59,18 @@ app.post('/auth', function(request, response) {
 				response.redirect('/home');
 			} else {
 				response.send('Incorrect Username and/or Password!');
-			}			
-			response.end();
+				response.end();
+			}
+
 		});
 	} else {
+
 		response.send('Please enter Username and Password!');
 		response.end();
 	}
+
+	
 });
-
-app.post('/reg', function(request, response) {
-
-	response.redirect('/reg')
-	response.end()
-})
 
 app.post('/register', function(request, response) {
 
@@ -93,20 +79,36 @@ app.post('/register', function(request, response) {
 	let password = request.body.password;
 	let c_password = request.body.cPassword;
 
+	// TODO update html to include name and student info 
 
+	if (password == c_password) {
 
+		sql_connection.query('SELECT username, email FROM user WHERE username = ? OR email = ?', [username, email], function(error, results, fields) {
+			if (error) throw error;
+			
+			if (results.length > 0 ) {
+				response.send("Username or email alreadt exist, try again.");
 
-	let q = "INSERT INTO user (username, email, password) VALUES (\" " + username + " \", \" "+email+" \", \" " + password+" \")";
-	console.log(q)
+			} else {
 
-	sql_connection.query(q, function(err, results ) {
-		if (err) throw err;
+				let q = "INSERT INTO user (username, email, password) VALUES (\" " + username + " \", \" "+email+" \", \" " + password+" \")";
+				console.log(q)
 
-		console.log("Successful register");
-	})
+				sql_connection.query(q, function(err, results ) {
+					if (err) throw err;
 
-	response.redirect('/home');
-	repsonse.end();
+					console.log("Successful register");
+				})
+
+				response.redirect('/home');
+
+			}
+		})
+
+	} else {
+		response.send("Passwords do not match!");
+		response.end();
+	}
 
 })
 
@@ -127,16 +129,9 @@ app.get('/reg', function(request, response) {
 
 // http://localhost:3000/home
 app.get('/home', function(request, response) {
-	// If the user is loggedin
-	if (request.session.loggedin) {
-		// Output username
-		response.sendFile(__dirname + "/Homepage/homepage.html");
+	
+	response.sendFile(__dirname + "/Homepage/homepage.html");
 
-	} else {
-		// Not logged in
-		response.send('Please login to view this page!');
-	}
-	response.end();
 });
 
 app.listen(3000)
