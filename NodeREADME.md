@@ -1,10 +1,10 @@
 To Install:
 
-MySQL Server
-Node.js
+- MySQL Server
+- Node.js
 
 Current node packages:
 
-Express (express)
-Express Sessions (express-session)
-MySQL for node.js (mysql2)
+- Express (express)
+- Express Sessions (express-session)
+- MySQL for node.js (mysql2)
