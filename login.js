@@ -10,7 +10,7 @@ const sql_connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'galactic',
 	password : 'DialgaPalkia!13',
-	database : 'advising_pathways'
+	database : 'advising_pathways',
 });
 
 sql_connection.connect(function(err) {

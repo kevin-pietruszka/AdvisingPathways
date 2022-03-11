@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/kevin-pietruszka/AdvisingPathways#readme",
   "dependencies": {
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "express-session": "^1.17.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3"
