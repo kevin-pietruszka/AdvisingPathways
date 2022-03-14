@@ -1,0 +1,434 @@
+body {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Arial', sans-serif;
+    margin-top: 100px;
+}
+
+.main-page {
+    padding: 40px;
+    width: 270px;
+    height: 450px;
+    background-color: #2c5280;
+    margin: 0 auto 10px;
+    box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+}
+
+.main-page h1 {
+    color: aliceblue;
+    font-weight: 550;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 1em;
+}
+.main-page h2 {
+    color: aliceblue;
+    font-weight: 380;
+    text-align: left;
+    font-size: 0.7em;
+}
+.main-page h3 {
+    color: aliceblue;
+    font-weight: 380;
+    position: relative;
+    top: -20px;
+    text-align: left;
+    font-size: 0.7em;
+}
+.main-page h4 {
+    color: aliceblue;
+    font-weight: 380;
+    position: relative;
+    top: -20px;
+    text-align: left;
+    font-size: 0.7em;
+}
+.main-page h5 {
+    color: aliceblue;
+    font-weight: 380;
+    position: relative;
+    top: -95px;
+    text-align: left;
+    font-size: 0.7em;
+}
+.main-page h6 {
+    color: aliceblue;
+    font-weight: 380;
+    position: relative;
+    top: -55px;
+    text-align: left;
+    font-size: 0.7em;
+}
+
+.main-page p {
+    margin-bottom: 40px;
+    font-weight: 100;
+    text-align: center;
+    font-size: 1em;
+}
+
+.main-page input[type=userInput] {
+    height: 20px;
+    font-size: 10px;
+    width: 100%;
+    position: relative;
+    top: -10px;
+    background: WHITE;
+    box-sizing: border-box;
+}
+.main-page input[type=userPW] {
+    height: 20px;
+    font-size: 10px;
+    width: 100%;
+    position: relative;
+    top: -33px;
+    background: WHITE;
+    box-sizing: border-box;
+}
+
+/*
+Register passward label
+*/
+.main-page input[type=rgUserPW] {
+    height: 20px;
+    font-size: 10px;
+    width: 100%;
+    position: relative;
+    top: -82px;
+    background: WHITE;
+    box-sizing: border-box; 
+}
+
+.main-page input[type=userEmail] {
+    height: 20px;
+    font-size: 10px;
+    width: 100%;
+    position: relative;
+    top: -35px;
+    background: WHITE;
+    box-sizing: border-box;
+}
+.main-page input[type=confirmPW] {
+    height: 20px;
+    font-size: 10px;
+    width: 100%;
+    position: relative;
+    top: -114px;
+    background: WHITE;
+    box-sizing: border-box;
+}
+
+.main-page input[type=userInput]:hover, input[type=userPW]:hover {
+    border: 1.5px solid BLACK;
+}
+.main-page input[type=userEmail]:hover, input[type=confirmPW]:hover {
+    border: 1.5px solid BLACK;
+}
+
+.main-page a:hover {
+    opacity: 1;
+}
+
+/*
+Login page login button
+*/
+.lgButton {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    position: relative;
+    top: -15px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.lgClicked {
+    width: 100%;
+    border: 0px;
+    color: BLACK;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: darkgrey;
+}
+
+.lgClicked:hover {
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: lightgrey;
+}
+
+/*
+Login page register button
+*/
+.rgButton {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    position: relative;
+    top: -5px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.rgClicked {
+    width: 100%;
+    border: 0px;
+    color: BLACK;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: darkgrey;
+}
+.rgClicked {
+    width: 100%;
+    border: 0px;
+    color: BLACK;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: darkgrey;
+}
+
+.rgClicked:hover {
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: lightgrey;
+}
+
+/*
+Registration page button
+*/
+.rglgButton {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    position: relative;
+    top: -105px;
+    height: 30px;
+    border-radius: 10px;
+}
+.rglgClicked {
+    width: 100%;
+    border: 0px;
+    color: BLACK;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: darkgrey;
+}
+.rglgClicked:hover {
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: lightgrey;
+}
+
+/*
+Registration page cancel button
+*/
+.cancelButton {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    position: relative;
+    top: -100px;
+    height: 30px;
+    border-radius: 10px;
+}
+.cancelClicked {
+    width: 100%;
+    border: 0px;
+    color: BLACK;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: darkgrey;
+}
+.cancelClicked:hover {
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: lightgrey;
+}
+
+/*
+Forgot? button
+*/
+.main-page a {
+    text-decoration: none;
+    color: WHITE;
+    font-weight: 200;
+    font-size: 10px;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+}
+.forget2 a {
+    text-decoration: none;
+    color: WHITE;
+    font-weight: 200;
+    font-size: 10px;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    top: -100px;
+}
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80px;
+    position: relative;
+    bottom: -px;
+}
+
+/*
+Home page
+*/
+.home-page {
+    padding: 40px;
+    width: 270px;
+    height: 500px;
+    background-color: #2c5280;
+    margin: 0 auto 10px;
+    box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.8);
+    overflow: hidden;    
+}
+.home-page h1 {
+    color: aliceblue;
+    font-weight: 550;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 1em;
+}
+.exploreButton {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    position: relative;
+    height: 30px;
+    border-radius: 10px;
+}
+.exploreClicked {
+    width: 100%;
+    border: 0px;
+    color: BLACK;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: bisque;
+}
+
+.exploreClicked:hover {
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: lightgrey;
+}
+
+.curriculumButton {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    position: relative;
+    top: 5px;
+    height: 30px;
+    border-radius: 10px;
+}
+.curriculumClicked {
+    width: 100%;
+    border: 0px;
+    color: BLACK;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: bisque;
+}
+
+.curriculumClicked:hover {
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: lightgrey;
+}
+
+.interestsButton {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    position: relative;
+    top: 10px;
+    height: 30px;
+    border-radius: 10px;
+}
+.interestsClicked {
+    width: 100%;
+    border: 0px;
+    color: BLACK;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: bisque;
+}
+
+.interestsClicked:hover {
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: lightgrey;
+}
+
+.appointmentButton {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    position: relative;
+    top: 15px;
+    height: 30px;
+    border-radius: 10px;
+}
+.appointmentClicked {
+    width: 100%;
+    border: 0px;
+    color: BLACK;
+    text-shadow: 0 1px rgba(0,0,0,0.1); 
+    background-color: bisque;
+}
+
+.appointmentClicked:hover {
+    border: 0px;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: lightgrey;
+}
+
+.forget3 a {
+    text-decoration: none;
+    color: WHITE;
+    font-weight: 200;
+    font-size: 10px;
+    text-align: right;
+    display: inline-block;
+    position: relative;
+    top: 20px;
+}
+
+#head-bar {
+    width: 100%;
+    height: 100px;
+    position: relative;
+    top: -100px;
+    background-color:burlywood;
+}
+#page-title {
+   height: 0px;
+}
+
+h7 {
+    color: aliceblue;
+    font-weight: 20000;
+    position: relative;
+    top: 20px;
+    left: 40px;
+    font-size: 3em;
+}
+
+h8 {
+    color: #2c5280;
+    font-weight: 20000;
+    position: relative;
+    left: 10px;
+    top: -70px;
+    font-size: 1.8em;
+}
