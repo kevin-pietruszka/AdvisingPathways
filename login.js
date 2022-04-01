@@ -35,9 +35,6 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(path.join(__dirname, 'Register')));
 app.use(express.static(path.join(__dirname, 'Homepage')));
 
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'src')));
-
 // ********************* Post messages ******************//
 
 // http://localhost:3000/auth
@@ -127,7 +124,7 @@ app.post('/register', function(request, response) {
 })
 
 app.post("/signup",  function(request, response) {
-	response.redirect("/reg");
+	response.redirect("/reg")
 })
 
 // ***************** Get Requests ******************** //
@@ -135,13 +132,13 @@ app.post("/signup",  function(request, response) {
 // http://localhost:3000/
 app.get('/', function(request, response) {
 	
-	response.sendFile(__dirname + '/public/index.html');
+	response.sendFile(__dirname + '/login.html');
 
 });
 
 app.get('/reg', function(request, response) {
 	
-	response.sendFile(__dirname + '/public/index.html');
+	response.sendFile(__dirname + '/Register/register.html');
 
 });
 
@@ -149,11 +146,11 @@ app.get('/reg', function(request, response) {
 app.get('/home', function(request, response) {
 	
 	if (request.session.loggedin) {
-		response.sendFile(__dirname + '/public/index.html');
+		response.sendFile(__dirname + "/Homepage/homepage.html");
 	} else {
-		response.redirect("/");
+		response.send("Please login in to view page");
 	}
 
 });
 
-app.listen(3001)
+app.listen(3000)
