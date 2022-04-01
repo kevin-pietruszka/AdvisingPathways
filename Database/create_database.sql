@@ -91,6 +91,18 @@ CREATE TABLE completed_class (
     FOREIGN KEY (department, class_number) REFERENCES class(department, class_number)
 );
 
+-- Granularity is user-cirriculum class
+CREATE TABLE curriculum (
+	cirriculum_id 		INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    username 			VARCHAR(255) NOT NULL,
+    department 			VARCHAR(255) NOT NULL,
+    class_number 		INT NOT NULL,
+    take_year		 	INT,
+    take_semester 		ENUM('SPRING', 'FALL', 'SUMMER'),
+    FOREIGN KEY (username) REFERENCES user(username),
+    FOREIGN KEY (department, class_number) REFERENCES class(department, class_number)
+);
+
 /*
 Appointment Scheduling
 ======================
@@ -177,3 +189,26 @@ INSERT INTO class_prerequisite VALUES (9, 'CX', 1, 'STATS1_MATH1');
 
 INSERT INTO class_prerequisite VALUES (10, 'CAPSTONE', 1, 'MATH3_STATS2');
 INSERT INTO class_prerequisite VALUES (11, 'CAPSTONE', 1, 'CS3_CX1');
+
+-- Insert dummy thread, requirements are:
+-- MATH 1 and 2
+-- 6 hours from STATS 2, CX 1, MATH 3
+-- CS 1, 2, 3
+-- CAPSTONE 1
+-- 6 hours free electives
+
+INSERT INTO thread VALUES ('Test Thread', 6);
+
+INSERT INTO class_list VALUES (12, 'Test Thread Core', 'MATH', 1);
+INSERT INTO class_list VALUES (13, 'Test Thread Core', 'MATH', 2);
+INSERT INTO class_list VALUES (14, 'Test Thread Core', 'CS', 1);
+INSERT INTO class_list VALUES (15, 'Test Thread Core', 'CS', 2);
+INSERT INTO class_list VALUES (16, 'Test Thread Core', 'CS', 3);
+INSERT INTO class_list VALUES (17, 'Test Thread Core', 'CAPSTONE', 1);
+
+INSERT INTO class_list VALUES (18, 'Test Thread Math', 'STATS', 2);
+INSERT INTO class_list VALUES (19, 'Test Thread Math', 'CX', 1);
+INSERT INTO class_list VALUES (20, 'Test Thread Math', 'MATH', 3);
+
+INSERT INTO thread_requirement VALUES (1, 'Test Thread', 'Test Thread Core', 18);
+INSERT INTO thread_requirement VALUES (2, 'Test Thread', 'Test Thread Math', 6);
