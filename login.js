@@ -87,7 +87,7 @@ app.post('/register', function(request, response) {
 
 	// TODO update html to include name and student info 
 
-	if (password == c_password) {
+	if (password === c_password) {
 
 		sql_connection.query('SELECT username, email FROM user WHERE username = ? OR email = ?', [username, email], function(error, results, fields) {
 
@@ -124,11 +124,15 @@ app.post('/register', function(request, response) {
 
 	}
 
-})
+});
 
 app.post("/signup",  function(request, response) {
 	response.redirect("/reg");
-})
+});
+
+app.post('/survey', function(request, response) {
+	response.redirect('/survey')
+});
 
 // ***************** Get Requests ******************** //
 
@@ -144,6 +148,13 @@ app.get('/reg', function(request, response) {
 	response.sendFile(__dirname + '/public/index.html');
 
 });
+
+app.get('/survey', function(request, response) {
+	
+	response.sendFile(__dirname + '/public/index.html');
+
+});
+
 
 // http://localhost:3000/home
 app.get('/home', function(request, response) {
