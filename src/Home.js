@@ -1,7 +1,16 @@
 import React from "react";
 import Sting from "./sting.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+
+    const nav = useNavigate();
+
+    const surveyChange = () =>{ 
+        let path = `/survey`; 
+        nav(path);
+    }
+
     return (
         <>
             <head>
@@ -24,7 +33,10 @@ function Home() {
                         <input type="submit" name="pathway" class="exploreButton exploreClicked" value="Explore New Pathway" />
                     </form>
                     <input type="button" name="curriculum" class="curriculumButton curriculumClicked" value="New Curriculum Profile" />
-                    <input type="button" name="interests" class="interestsButton interestsClicked" value="Explore Interests" />
+
+                    
+                    <input type="button" name="interests" class="interestsButton interestsClicked" value="Explore Interests" onClick={surveyChange}/>
+                    
 
                     <form action="https://advisor.gatech.edu/">
                         <input type="submit" name="appointment" class="appointmentButton appointmentClicked" value="Schedule Advising Appointment" />

@@ -11,6 +11,21 @@ Questions regarding IP should be directed to Amanda Girard at amanda.girard@lmc.
 
 # Release Notes
 
+## Version v0.4.0
+
+### Features
+
+- Survey made with SurveyJS framework to recommend threads to user
+
+### Bug Fixes
+
+- N/A
+
+### Known Issues
+
+- Password entry is not hidden
+- Recommendation is currently an alert box
+
 ## Version v0.3.0
 
 ### Features
