@@ -145,6 +145,12 @@ app.get('/reg', function(request, response) {
 
 });
 
+app.post('/walkthrough', function (request, response) {
+
+	response.redirect("/walkthrough");
+
+});
+
 // http://localhost:3000/home
 app.get('/home', function(request, response) {
 	
