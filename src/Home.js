@@ -28,7 +28,10 @@ function Home() {
                 <div class="home-page">
                     <img src={Sting} alt="Gatech" id="sting" />
                     <h1>Login succeeded, welcome to Georgia Tech Advising System! What would you like to do today?</h1>
-                    <input type="button" name="pathway" class="exploreButton exploreClicked" value="Explore New Pathway" />
+
+                    <form action="/walkthrough" method="post">
+                        <input type="submit" name="pathway" class="exploreButton exploreClicked" value="Explore New Pathway" />
+                    </form>
                     <input type="button" name="curriculum" class="curriculumButton curriculumClicked" value="New Curriculum Profile" />
 
                     

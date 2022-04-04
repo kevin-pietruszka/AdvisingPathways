@@ -149,12 +149,17 @@ app.get('/reg', function(request, response) {
 
 });
 
+app.post('/walkthrough', function (request, response) {
+
+	response.redirect("/walkthrough");
+
+});
+
 app.get('/survey', function(request, response) {
 	
 	response.sendFile(__dirname + '/public/index.html');
 
 });
-
 
 // http://localhost:3000/home
 app.get('/home', function(request, response) {
