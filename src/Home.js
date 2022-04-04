@@ -11,7 +11,6 @@ function Home() {
         nav(path);
     }
 
-
     return (
         <>
             <head>
