@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 
 const classes = [
-    ["math1", null],
-    ["cs1", null],
-    ["lit1", null],
-    ["pol1", null],
-    ["sci1", null],
-    ["lang1", null],
-    ["art1", null],
-    ["des1", null],
+    ["math1", []],
+    ["cs1", []],
+    ["lit1", []],
+    ["pol1", []],
+    ["sci1", []],
+    ["lang1", []],
+    ["art1", []],
+    ["des1", []],
     ["math2", ["math1"]],
 ];
 
 function Walkthrough() {
     const [choices, setChoices] = useState([]);
     const [choosing, setChoosing] = useState([]);
-    let takenClasses = [];
+    const [updater, setUpdater] = useState([]);
+    const [semesters, setSemesters] = useState([]);
+    const [takenClasses, setTaken] = useState([]);
     const choiceClear = [];
 
     function checkOffer(testClass) {
@@ -23,11 +25,14 @@ function Walkthrough() {
             return false;
         }
 
-        for (let val in testClass[1]) {
-            if (!takenClasses.includes(val)) {
+        for (let i = 0; i < testClass[1].length; i++) {
+            console.log(testClass[1][i]);
+            if (!takenClasses.includes(testClass[1][i])) {
                 return false;
             }
         }
+
+
 
         return true;
     }
@@ -44,13 +49,45 @@ function Walkthrough() {
 
     function clearChoices() {
         setChoices(choiceClear);
+        setChoosing(choiceClear);
+        setSemesters(choiceClear);
+        setTaken(choiceClear);
     }
 
     function classSelector(text) {
         let chosen = choosing;
-        chosen.push(text);
-        setChoosing(chosen);
-        console.log(choosing);
+        if (!choosing.includes(text)) {
+            chosen.push(text);
+            setChoosing(chosen);
+
+            for (let i = 0; i < choices.length; i++) {
+                if (choices[i] === text) {
+                    choices.splice(i, 1);
+                }
+            }
+
+            setUpdater(choiceClear);
+        }        
+    }
+
+
+    function saveSemester() {
+        let newYear = [];
+        let oldYear = semesters;
+        let taken = takenClasses;
+        newYear.push(choosing);
+        for (let i = 0; i < oldYear.length; i++) {
+            newYear.push(oldYear[i]);
+        }
+
+        setSemesters(newYear);
+
+        for (let i = 0; i < choosing.length; i++) {
+            taken.push(choosing[i]);
+        }
+        setChoosing(choiceClear);
+        setChoices(choiceClear);
+        getChoices();
     }
 
     return (
@@ -65,6 +102,7 @@ function Walkthrough() {
                 </div>
 
                 <input type="button" onClick={getChoices} value="Start Walkthrough" />
+                <input type="button" onClick={saveSemester} value="Save Semester" />
                 <input type="button" onClick={clearChoices} value="clear" />
 
                 <div class="walk-through">
@@ -80,6 +118,20 @@ function Walkthrough() {
                     {choosing.map(choose => (
                         <div key={Math.random()}>
                             <input type="button" class="classButton" value={choose} />
+                        </div>
+                    ))}
+                </div>
+                <div>
+                    {semesters.map((year, index) => (
+                        <div key={Math.random()} class="semester-grid">
+                            <h9>Semester {semesters.length - index}</h9>
+                            <div class="semester-classes">
+                                {semesters[index].map(course => (
+                                    <div key={Math.random()}>
+                                        <input type="button" class="classButton" value={course} />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     ))}
                 </div>

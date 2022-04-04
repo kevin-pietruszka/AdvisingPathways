@@ -5,7 +5,7 @@ function LoginPage() {
     return (
         <>
             <div id="head-bar">
-                <h1>Georgia Tech</h1>
+                <h7>Georgia Tech</h7>
             </div>
 
             <div id="page-title">
