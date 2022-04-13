@@ -13,18 +13,7 @@ function Home() {
 
     return (
         <>
-            <head>
-                <title>Home</title>
-            </head>
             <body>
-                <div id="head-bar">
-                    <h7>Georgia Tech</h7>
-                </div>
-
-                <div id="page-title">
-                    <h8>Advising Pathways</h8>
-                </div>
-
                 <div class="home-page">
                     <img src={Sting} alt="Gatech" id="sting" />
                     <h1>Login succeeded, welcome to Georgia Tech Advising System! What would you like to do today?</h1>

@@ -93,14 +93,7 @@ function Walkthrough() {
     return (
         <>
             <div>
-                <div id="head-bar">
-                    <h7>Georgia Tech</h7>
-                </div>
-
-                <div id="page-title">
-                    <h8>Advising Pathways</h8>
-                </div>
-
+                
                 <input type="button" onClick={getChoices} value="Start Walkthrough" />
                 <input type="button" onClick={saveSemester} value="Save Semester" />
                 <input type="button" onClick={clearChoices} value="clear" />
