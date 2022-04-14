@@ -126,6 +126,35 @@ app.post('/register', function(request, response) {
 
 });
 
+app.post('/course_list', function(request, response) {
+
+	let thread1 = request.body.thread1
+	let thread2 = request.body.thread2
+
+	if (thread1 === thread2) {
+		response.send("You cannot select the same thread twice");
+	}
+
+	let threadQuery1 = "SELECT DISTINCT department, class_number FROM class_list WHERE class_list_name IN (SELECT class_list_name FROM thread_requirement WHERE thread_name = " + thread1 + ")";
+
+	let threadQuery2 = "SELECT DISTINCT department, class_number FROM class_list WHERE class_list_name IN (SELECT class_list_name FROM thread_requirement WHERE thread_name = " + thread2 + ")";
+
+	let output = []
+
+	sql_connection.query(threadQuery1, function(error, results, fields) {
+
+		if(error) throw error;
+		if(results.length === 0) return;
+
+		for (let row = 0; row < results.length; row++) {
+
+			
+
+		}
+	});
+
+});
+
 app.post("/signup",  function(request, response) {
 	response.redirect("/reg");
 });
