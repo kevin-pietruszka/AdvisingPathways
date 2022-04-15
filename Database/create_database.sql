@@ -1,4 +1,4 @@
-DROP DATABASE advising_pathways;
+DROP DATABASE IF EXISTS advising_pathways;
 CREATE DATABASE IF NOT EXISTS advising_pathways;
 USE advising_pathways;
 

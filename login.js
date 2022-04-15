@@ -221,6 +221,8 @@ app.post('/course_list', function(request, response) {
 		});
 	});
 
+	console.log(output)
+
 });
 
 app.post("/signup",  function(request, response) {
