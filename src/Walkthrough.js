@@ -52,6 +52,7 @@ function Walkthrough() {
         setChoosing(choiceClear);
         setSemesters(choiceClear);
         setTaken(choiceClear);
+        window.location.reload();
     }
 
     function classSelector(text) {
