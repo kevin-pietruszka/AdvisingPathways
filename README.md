@@ -16,6 +16,8 @@ Questions regarding IP should be directed to Amanda Girard at amanda.girard@lmc.
 ### Features
 
 - Survey made with SurveyJS framework to recommend threads to user
+- Walkthrough feature built out with temporary data
+- Framework for curriculum saving implemented
 
 ### Bug Fixes
 
@@ -25,6 +27,8 @@ Questions regarding IP should be directed to Amanda Girard at amanda.girard@lmc.
 
 - Password entry is not hidden
 - Recommendation is currently an alert box
+- Walkthrough needs connection to database
+- Walkthrough needs comprehensive updating of current courses
 
 ## Version v0.3.0
 
