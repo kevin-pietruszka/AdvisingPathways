@@ -446,13 +446,37 @@ h9 {
     max-width: 90%;
     height: 500px;
     background-color: #828282;
-    margin: auto;
     overflow: hidden;
 }
 
-.walkthrough-buttons button {
+.walkthrough-buttons {
     display: block;
+    vertical-align: top;
+    width: 180px;
+    margin: auto;
 }
+
+.walkthrough-section1 {
+    display: inline-block;
+}
+
+.walkthrough-section2 {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.walkthrough-sections {
+    margin: auto;
+    width: 1350px;
+}
+
+.walkthrough-menu {
+    width: 200px;
+    background-color: #ababab;
+    height: 520px;
+    padding: 20px 10px 40px;
+}
+
 
 .choice-grid {
     display: grid;
@@ -468,7 +492,6 @@ h9 {
     padding: 40px;
     width: 1000px;
     max-width: 90%;
-    margin: auto;
     overflow: hidden;
 }
 
@@ -477,7 +500,6 @@ h9 {
     padding: 20px 40px 30px;
     width: 1000px;
     max-width: 90%;
-    margin: auto;
     margin-top: 15px;
     overflow: hidden;
 }
