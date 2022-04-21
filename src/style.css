@@ -450,6 +450,10 @@ h9 {
     overflow: hidden;
 }
 
+.walkthrough-buttons button {
+    display: block;
+}
+
 .choice-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

@@ -94,10 +94,12 @@ function Walkthrough() {
     return (
         <>
             <div>
-                
-                <input type="button" onClick={getChoices} value="Start Walkthrough" />
-                <input type="button" onClick={saveSemester} value="Save Semester" />
-                <input type="button" onClick={clearChoices} value="clear" />
+
+                <div class="walkthrough-buttons">
+                    <input type="button" onClick={getChoices} value="Start Walkthrough" />
+                    <input type="button" onClick={saveSemester} value="Save Semester" />
+                    <input type="button" onClick={clearChoices} value="clear" />
+                </div>
 
                 <div class="walk-through">
                     <div class="choice-grid">
