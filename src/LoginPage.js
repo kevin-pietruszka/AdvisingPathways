@@ -4,14 +4,6 @@ import Sting from "./sting.jpg";
 function LoginPage() {
     return (
         <>
-            <div id="head-bar">
-                <h7>Georgia Tech</h7>
-            </div>
-
-            <div id="page-title">
-                <h8>Advising Pathways</h8>
-            </div>
-
             <div class="main-page">
                 <img src={Sting} alt="Gatech sting" id="sting"/>
                 <h1>Enter your Advising Pathways Username and Password</h1>

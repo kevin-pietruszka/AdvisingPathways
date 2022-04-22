@@ -52,6 +52,7 @@ function Walkthrough() {
         setChoosing(choiceClear);
         setSemesters(choiceClear);
         setTaken(choiceClear);
+        window.location.reload();
     }
 
     function classSelector(text) {
@@ -92,48 +93,47 @@ function Walkthrough() {
 
     return (
         <>
-            <div>
-                <div id="head-bar">
-                    <h7>Georgia Tech</h7>
+            <div class="walkthrough-sections">
+
+                <div class="walkthrough-section1">
+                    <div class="walkthrough-menu">
+                        <input type="button" class="walkthrough-buttons" onClick={getChoices} value="Start Walkthrough" />
+                        <input type="button" class="walkthrough-buttons" onClick={saveSemester} value="Save Semester" />
+                        <input type="button" class="walkthrough-buttons" onClick={clearChoices} value="clear" />
+                    </div>
                 </div>
 
-                <div id="page-title">
-                    <h8>Advising Pathways</h8>
-                </div>
-
-                <input type="button" onClick={getChoices} value="Start Walkthrough" />
-                <input type="button" onClick={saveSemester} value="Save Semester" />
-                <input type="button" onClick={clearChoices} value="clear" />
-
-                <div class="walk-through">
-                    <div class="choice-grid">
-                        {choices.map(choice => (
+                <div class="walkthrough-section2">
+                    <div class="walk-through">
+                        <div class="choice-grid">
+                            {choices.map(choice => (
+                                <div key={Math.random()}>
+                                    <input type="button" class="classButton" onClick={() => classSelector(choice)} value={choice} />
+                                </div>
+                            ))}
+                        </div>                    
+                    </div>
+                    <div class="choose-grid">
+                        {choosing.map(choose => (
                             <div key={Math.random()}>
-                                <input type="button" class="classButton" onClick={() => classSelector(choice)} value={choice} />
+                                <input type="button" class="classButton" value={choose} />
                             </div>
                         ))}
-                    </div>                    
-                </div>
-                <div class="choose-grid">
-                    {choosing.map(choose => (
-                        <div key={Math.random()}>
-                            <input type="button" class="classButton" value={choose} />
-                        </div>
-                    ))}
-                </div>
-                <div>
-                    {semesters.map((year, index) => (
-                        <div key={Math.random()} class="semester-grid">
-                            <h9>Semester {semesters.length - index}</h9>
-                            <div class="semester-classes">
-                                {semesters[index].map(course => (
-                                    <div key={Math.random()}>
-                                        <input type="button" class="classButton" value={course} />
-                                    </div>
-                                ))}
+                    </div>
+                    <div>
+                        {semesters.map((year, index) => (
+                            <div key={Math.random()} class="semester-grid">
+                                <h9>Semester {semesters.length - index}</h9>
+                                <div class="semester-classes">
+                                    {semesters[index].map(course => (
+                                        <div key={Math.random()}>
+                                            <input type="button" class="classButton" value={course} />
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </>

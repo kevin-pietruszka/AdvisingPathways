@@ -173,7 +173,10 @@ function ThreadSurvey() {
 
   survey.onComplete.add(alertResults);
   survey.onComplete.add(backtohome)
-  return <Survey model={survey} />
+    return (
+        <>
+            <Survey model={survey} />
+        </>);
   
 }
 
