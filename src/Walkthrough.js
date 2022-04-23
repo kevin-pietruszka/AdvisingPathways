@@ -12,6 +12,8 @@ const classes = [
     ["math2", ["math1"]],
 ];
 
+const data = require('./prereqs.json');
+
 function Walkthrough() {
     const [choices, setChoices] = useState([]);
     const [choosing, setChoosing] = useState([]);
@@ -19,6 +21,9 @@ function Walkthrough() {
     const [semesters, setSemesters] = useState([]);
     const [takenClasses, setTaken] = useState([]);
     const choiceClear = [];
+
+
+    console.log(data.CS1100);
 
     function checkOffer(testClass) {
         if (takenClasses.includes(testClass[0])) {
