@@ -126,6 +126,105 @@ app.post('/register', function(request, response) {
 
 });
 
+app.post('/course_list', function(request, response) {
+
+	let thread1 = request.body.thread1
+	let thread2 = request.body.thread2
+
+	if (thread1 === thread2) {
+		response.send("You cannot select the same thread twice");
+	}
+
+	let threadQuery1 = "SELECT DISTINCT department, class_number FROM class_list WHERE class_list_name IN (SELECT class_list_name FROM thread_requirement WHERE thread_name = " + thread1 + ")";
+
+	let threadQuery2 = "SELECT DISTINCT department, class_number FROM class_list WHERE class_list_name IN (SELECT class_list_name FROM thread_requirement WHERE thread_name = " + thread2 + ")";
+
+	let output = {}
+
+	sql_connection.query(threadQuery1, function(error, results, fields) {
+
+		if(error) throw error;
+		if(results.length === 0) return;
+
+		Object.keys(results).forEach(function(key) {
+			var row = results[key];
+			let c = row.department + row.class_number;
+			let prereq = " SELECT class_list_name FROM class_prerequisite where department=" + row.department + " AND class_number=" + row.class_number;
+
+			sql_connection.query(prereq, function(error, results, fields) {
+				if(error) throw error;
+				if(results.length === 0) return;
+
+				
+				let row2 = results[0];
+
+				let list = "SELECT department, class_number FROM class_list WHERE class_list_name = " + row2.class_list_name
+				
+				sql_connection.query(list, function(error, results, fields) {
+
+					if(error) throw error;
+					if(results.length === 0) return true;
+
+					let classes = []
+					Object.keys(results).forEach(function(key) {
+						
+						let row3 = results[key]
+						classes.push(row3.department + row3.class_number);
+
+					});
+
+					output[c] = classes;
+				});
+
+				
+			});
+		});
+	});
+
+	sql_connection.query(threadQuery2, function(error, results, fields) {
+
+		if(error) throw error;
+		if(results.length === 0) return;
+
+		Object.keys(results).forEach(function(key) {
+			var row = results[key];
+			let c = row.department + row.class_number;
+			let prereq = " SELECT class_list_name FROM class_prerequisite where department=" + row.department + " AND class_number=" + row.class_number;
+
+			sql_connection.query(prereq, function(error, results, fields) {
+				if(error) throw error;
+				if(results.length === 0) return;
+
+				
+				let row2 = results[0];
+
+				let list = "SELECT department, class_number FROM class_list WHERE class_list_name = " + row2.class_list_name
+				
+				sql_connection.query(list, function(error, results, fields) {
+
+					if(error) throw error;
+					if(results.length === 0) return true;
+
+					let classes = []
+					Object.keys(results).forEach(function(key) {
+						
+						let row3 = results[key]
+						classes.push(row3.department + row3.class_number);
+
+					});
+
+					output[c] = classes;
+				});
+
+				
+			});
+		});
+	});
+
+	console.log(output)
+
+});
+
 app.post("/signup",  function(request, response) {
 	response.redirect("/reg");
 });
