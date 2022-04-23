@@ -16,6 +16,12 @@ function App() {
                 <div id="page-title">
                     <h8>Advising Pathways</h8>
                 </div>
+                <div id="external-bar">
+                    <h9><a href="/home">Home</a></h9>
+                    <h10 class="external"> <a href="https://advisor.gatech.edu/">Advising Appointment</a></h10>
+                    <h11 class="external"> <a href="/">Logout</a> </h11>
+                </div>
+
             <Routes>
                 <Route exact path="/" element={<LoginPage />} />
                 <Route exact path="/reg" element={<Register />} />

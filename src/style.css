@@ -438,6 +438,12 @@ h8 {
 
 h9 {
     font-size: 1em;
+    padding: 10px;
+}
+
+.external {
+    padding: 10px;
+    border-left: solid #a4925a;
 }
 
 .walk-through {
