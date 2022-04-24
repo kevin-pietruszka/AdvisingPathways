@@ -3,7 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const exp = require('constants');
-
+const async = require("async");
 const app = express();
 
 const sql_connection = mysql.createConnection({
@@ -12,6 +12,18 @@ const sql_connection = mysql.createConnection({
 	password : 'DialgaPalkia!13',
 	database : 'advising_pathways',
 });
+
+let execute_query = (query) => {
+	return new Promise((resolve, reject) => {
+		sql_connection.query(query, function(error, rows) {
+
+			if(error) reject(error);
+
+			resolve(rows);
+
+		});
+	})
+};
 
 sql_connection.connect(function(err) {
 	if (err) throw err;
@@ -126,103 +138,126 @@ app.post('/register', function(request, response) {
 
 });
 
-app.post('/course_list', function(request, response) {
 
-	let thread1 = request.body.thread1
-	let thread2 = request.body.thread2
+app.post("/api/threadcourses", function(request, response) {
 
-	if (thread1 === thread2) {
-		response.send("You cannot select the same thread twice");
+	console.log(request.body.thread)
+
+	let threadQuery = "SELECT class_list_name, num_hrs_required FROM thread_requirement where thread_name = \"" + request.body.thread + "\"";
+	let data = [];
+
+	let add = function(list) {
+		data.push(list)
 	}
 
-	let threadQuery1 = "SELECT DISTINCT department, class_number FROM class_list WHERE class_list_name IN (SELECT class_list_name FROM thread_requirement WHERE thread_name = " + thread1 + ")";
+	let query_callback = function(error, rows, fields) {
+		if (error) throw error;
+		if (rows.length === 0) return;
+		
 
-	let threadQuery2 = "SELECT DISTINCT department, class_number FROM class_list WHERE class_list_name IN (SELECT class_list_name FROM thread_requirement WHERE thread_name = " + thread2 + ")";
+		let nest = function(row, callback) {
+			// console.log(row.class_list_name);
+			let query = "select department, class_number from class_list where class_list_name=\""+ row.class_list_name + "\"";
+			let hours = row.num_hrs_required;
 
-	let output = {}
+			let nest2 = function(error, rows, fields) {
 
-	sql_connection.query(threadQuery1, function(error, results, fields) {
+				let one_list = []
 
-		if(error) throw error;
-		if(results.length === 0) return;
+				if (hours === -1) {
+					one_list.push("ALL")
+				} else {
+					let classes = hours / 3
+					one_list.push(classes.toString())
+				}
 
-		Object.keys(results).forEach(function(key) {
-			var row = results[key];
-			let c = row.department + row.class_number;
-			let prereq = " SELECT class_list_name FROM class_prerequisite where department=" + row.department + " AND class_number=" + row.class_number;
+				let cb = function(row,callback) {
 
-			sql_connection.query(prereq, function(error, results, fields) {
-				if(error) throw error;
-				if(results.length === 0) return;
+					if (row.class_number === 0) {
+						one_list.push(row.department)
+					} else {
+						one_list.push(row.department + row.class_number.toString())
+					}
 
+					callback()
+
+				}
+				async.each(rows, cb);
+
+				add(one_list);
 				
-				let row2 = results[0];
-
-				let list = "SELECT department, class_number FROM class_list WHERE class_list_name = " + row2.class_list_name
 				
-				sql_connection.query(list, function(error, results, fields) {
+			}
+			sql_connection.query(query, nest2);
 
-					if(error) throw error;
-					if(results.length === 0) return true;
+			callback()
+		}
 
-					let classes = []
-					Object.keys(results).forEach(function(key) {
+
+		async.each(rows, nest);
+
+		console.log(data);
+		
+	}
+
+
+	sql_connection.query(threadQuery, query_callback);
+
+	response.send(data.json());
+
+});
+
+
+
+app.post("/api/class_prereqs", function(request, response) {
+
+	let class_name = request.body.class;
+
+	let department = class_name.slice(0,2);
+	let class_number = class_name.slice(2);
+
+
+	let prereqgroups = " SELECT class_list_name FROM class_prerequisite where department= \"" + department + "\" AND class_number=" + class_number;
+
+	let data = []
+
+	const append = function(ele) {
+		data.push(ele)
+	};
+
+	const classes = async () => {
+
+		const rows = await execute_query(prereqgroups).then(function(results) {
+
+			const each = function(row, callback) {
+
+				let class_query = "SELECT department, class_name FROM class_list WHERE class_list_name=\"" + row.class_list_name + "\"";
+
+				sql_connection.query(class_query, function(prereq_classes, results) {
+
+					let list = []
+
+					const iter = function(prereq, cb) {
 						
-						let row3 = results[key]
-						classes.push(row3.department + row3.class_number);
+						list.push(prereq.department + prereq.class_name);
 
-					});
+					};
 
-					output[c] = classes;
+					async.each(prereq_classes, iter);
+					append(list);
 				});
 
-				
-			});
+			};
+
+			async.each(results, each);
+
 		});
-	});
 
-	sql_connection.query(threadQuery2, function(error, results, fields) {
+	};
 
-		if(error) throw error;
-		if(results.length === 0) return;
-
-		Object.keys(results).forEach(function(key) {
-			var row = results[key];
-			let c = row.department + row.class_number;
-			let prereq = " SELECT class_list_name FROM class_prerequisite where department=" + row.department + " AND class_number=" + row.class_number;
-
-			sql_connection.query(prereq, function(error, results, fields) {
-				if(error) throw error;
-				if(results.length === 0) return;
-
-				
-				let row2 = results[0];
-
-				let list = "SELECT department, class_number FROM class_list WHERE class_list_name = " + row2.class_list_name
-				
-				sql_connection.query(list, function(error, results, fields) {
-
-					if(error) throw error;
-					if(results.length === 0) return true;
-
-					let classes = []
-					Object.keys(results).forEach(function(key) {
-						
-						let row3 = results[key]
-						classes.push(row3.department + row3.class_number);
-
-					});
-
-					output[c] = classes;
-				});
-
-				
-			});
-		});
-	});
-
-	console.log(output)
-
+	classes();
+	response.send(data.json());
+	
 });
 
 app.post("/signup",  function(request, response) {
