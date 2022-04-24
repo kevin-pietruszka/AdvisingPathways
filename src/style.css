@@ -446,6 +446,7 @@ h9 {
     border-left: solid #a4925a;
 }
 
+
 .walk-through {
     padding: 40px;
     width: 1000px;
@@ -458,7 +459,7 @@ h9 {
 .walkthrough-buttons {
     display: block;
     vertical-align: top;
-    width: 180px;
+    width: 100%;
     margin: auto;
 }
 

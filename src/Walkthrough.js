@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const classes = [
+const classesOld = [
     ["math1", []],
     ["cs1", []],
     ["lit1", []],
@@ -12,9 +12,11 @@ const classes = [
     ["math2", ["math1"]],
 ];
 
-const data = require('./prereqs.json');
+const prereq = require('./prereqs.json');
+const threads = require('./threads.json');
 
 function Walkthrough() {
+    const [classes, setClasses] = useState([]);
     const [choices, setChoices] = useState([]);
     const [choosing, setChoosing] = useState([]);
     const [updater, setUpdater] = useState([]);
@@ -22,8 +24,77 @@ function Walkthrough() {
     const [takenClasses, setTaken] = useState([]);
     const choiceClear = [];
 
+    /*for (let ent in threads) {
+        if (ent == "core") {
+            console.log(threads[ent]);
+        }
+    }*/
 
-    console.log(data.CS1100);
+    function makeClasses() {
+        const classGet = [];
+        let checker = true;
+        let t1 = getThread("thread1");
+        let t2 = getThread("thread2");
+        for (let ent in threads) {
+            if (ent == t1) {
+                for (let i = 1; i < threads[ent][0].length; i++) {
+                    for (let val in prereq) {
+                        if (val == threads[ent][0][i]) {
+                            classGet.push([threads[ent][0][i], prereq[val][0]]);
+                        }
+                    }
+                }
+            }
+        }
+
+        if (t1 != t2) {
+            for (let ent in threads) {
+                if (ent == t2) {
+                    for (let i = 1; i < threads[ent][0].length; i++) {
+                        for (let k = 0; k < classGet.length; k++) {
+                            if (classGet[k][0] == threads[ent][0][i]) {
+                                checker = false;
+                            }                            
+                        }
+                        if (checker) {
+                            for (let val in prereq) {
+                                if (val == threads[ent][0][i]) {
+                                    classGet.push([threads[ent][0][i], prereq[val][0]]);
+                                }
+                            }
+                        }
+                        checker = true;
+                    }
+                }
+            }
+        }
+
+        for (let ent in threads) {
+            if (ent == "core") {
+                for (let i = 1; i < threads[ent][0].length; i++) {
+                    for (let k = 0; k < classGet.length; k++) {
+                        if (classGet[k][0] == threads[ent][0][i]) {
+                            checker = false;
+                        }
+                    }
+                    if (checker) {
+                        for (let val in prereq) {
+                            if (val == threads[ent][0][i]) {
+                                classGet.push([threads[ent][0][i], prereq[val][0]]);
+                                checker = false;
+                            }
+                        }
+                    }
+
+                    if (checker) {
+                        classGet.push([threads[ent][0][i], []]);
+                    }
+                    checker = true;
+                }
+            }
+        }
+        setClasses(classGet);
+    }
 
     function checkOffer(testClass) {
         if (takenClasses.includes(testClass[0])) {
@@ -31,14 +102,10 @@ function Walkthrough() {
         }
 
         for (let i = 0; i < testClass[1].length; i++) {
-            console.log(testClass[1][i]);
             if (!takenClasses.includes(testClass[1][i])) {
                 return false;
             }
         }
-
-
-
         return true;
     }
 
@@ -49,6 +116,7 @@ function Walkthrough() {
                 choiceGet.push(classes[i][0]);
             }
         }
+        console.log(classes);
         setChoices(choiceGet);
     }
 
@@ -57,6 +125,7 @@ function Walkthrough() {
         setChoosing(choiceClear);
         setSemesters(choiceClear);
         setTaken(choiceClear);
+        setClasses(choiceClear);
         window.location.reload();
     }
 
@@ -96,12 +165,44 @@ function Walkthrough() {
         getChoices();
     }
 
+    function getThread(thread) {
+        var select1 = document.getElementById(thread);
+        var threadChoice = select1.options[select1.selectedIndex].value;
+        return threadChoice;
+    }
+
     return (
         <>
             <div class="walkthrough-sections">
 
                 <div class="walkthrough-section1">
                     <div class="walkthrough-menu">
+
+                        <label htmlFor="thread1">Thread 1:</label>
+                        <select class="walkthrough-buttons" name="thread1" id="thread1">
+                            <option value="devices">Devices</option>
+                            <option value="info">Info Internetworks</option>
+                            <option value="intelligence">Intelligence</option>
+                            <option value="media">Media</option>
+                            <option value="modsim">Modeling & Simulation</option>
+                            <option value="people">People</option>
+                            <option value="sysarc">Systems & Architecture</option>
+                            <option value="theory">Theory</option>
+                        </select>
+
+                        <label htmlFor="thread2">Thread 2:</label>
+                        <select class="walkthrough-buttons" name="thread2" id="thread2">
+                            <option value="devices">Devices</option>
+                            <option value="info">Info Internetworks</option>
+                            <option value="intelligence">Intelligence</option>
+                            <option value="media">Media</option>
+                            <option value="modsim">Modeling & Simulation</option>
+                            <option value="people">People</option>
+                            <option value="sysarc">Systems & Architecture</option>
+                            <option value="theory">Theory</option>
+                        </select>
+
+                        <input type="button" class="walkthrough-buttons" onClick={makeClasses} value="Set Threads" />
                         <input type="button" class="walkthrough-buttons" onClick={getChoices} value="Start Walkthrough" />
                         <input type="button" class="walkthrough-buttons" onClick={saveSemester} value="Save Semester" />
                         <input type="button" class="walkthrough-buttons" onClick={clearChoices} value="clear" />
