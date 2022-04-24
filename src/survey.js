@@ -153,19 +153,28 @@ function ThreadSurvey() {
     // const results = JSON.stringify(sender.data);
 
     let scores = []
+    let max = -1
     for (let i = 0; i < 8; i++) {
-      scores.push(sender.data[i+1]);
+      
+      let tmp = Number(sender.data[i+1])
+      if (tmp > max ) max = tmp;
+      scores.push(tmp);
     }
 
-    let highest = Math.max(scores);
+    
+    
+    console.log(scores[0])
     console.log(scores)
     
     let results = "We recommend the folowing threads: "
     for (let i = 0; i < 8; i++) {
-     if (scores[i] == highest) {
-       results = results + threads[i] + " "
+     if (scores[i] === max) {
+       
+       results = results + threads[i] + ", "
      }
     }
+
+    results = results.slice(0, results.length - 2)
 
     alert(results);
 
