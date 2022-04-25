@@ -11,6 +11,29 @@ Questions regarding IP should be directed to Amanda Girard at amanda.girard@lmc.
 
 # Release Notes
 
+## Version v0.5.0
+
+### Features
+
+- Updated walkthrough to use JSON file structure for data
+- Built out walkthrough UI
+- Framework for curriculum saving adjusted to utilize JSON 
+
+### Bug Fixes
+
+- Fixed Walkthrough crashing after clear
+
+### Known Issues
+
+- Password entry is not hidden
+- Recommendation is currently an alert box
+- Database needs connection to JSON data files used by walkthrough
+- Curriculum saving needs to be implemented through login.js, or with AJAX
+- Walkthrough needs comprehensive updating of current courses
+- UI needs to be refined on walkthrough for ease of use
+- UI indicators for hours and course requirements need to be added to Walkthrough
+- Survey needs UI overhaul
+
 ## Version v0.4.0
 
 ### Features
