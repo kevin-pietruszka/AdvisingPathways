@@ -32,7 +32,7 @@ function Home() {
                     </form>
 
                     <div class="forget3">
-                        <a href="index.html">Log out</a>
+                        <a href="/">Log out</a>
                     </div>
 
                 </div>
