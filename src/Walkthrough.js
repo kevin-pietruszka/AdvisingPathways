@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const classesOld = [
-    ["math1", []],
-    ["cs1", []],
-    ["lit1", []],
-    ["pol1", []],
-    ["sci1", []],
-    ["lang1", []],
-    ["art1", []],
-    ["des1", []],
-    ["math2", ["math1"]],
-];
+const curriculums = [];
 
 const prereq = require('./prereqs.json');
 const threads = require('./threads.json');
@@ -24,88 +14,71 @@ function Walkthrough() {
     const [takenClasses, setTaken] = useState([]);
     const choiceClear = [];
 
-    /*for (let ent in threads) {
-        if (ent == "core") {
-            console.log(threads[ent]);
-        }
-    }*/
-
     function makeClasses() {
         const classGet = [];
         let checker = true;
-        let t1 = getThread("thread1");
-        let t2 = getThread("thread2");
-        for (let ent in threads) {
-            if (ent == t1) {
-                for (let i = 1; i < threads[ent][0].length; i++) {
-                    for (let val in prereq) {
-                        if (val == threads[ent][0][i]) {
-                            classGet.push([threads[ent][0][i], prereq[val][0]]);
-                        }
-                    }
-                }
+
+        let choice = getThread("thread1");
+        for (let a = 0; a < threads[choice].length; a++) {
+            for (let b = 1; b < threads[choice][a].length; b++) {
+                classGet.push(threads[choice][a][b]);                
             }
+
         }
 
-        if (t1 != t2) {
-            for (let ent in threads) {
-                if (ent == t2) {
-                    for (let i = 1; i < threads[ent][0].length; i++) {
-                        for (let k = 0; k < classGet.length; k++) {
-                            if (classGet[k][0] == threads[ent][0][i]) {
-                                checker = false;
-                            }                            
-                        }
-                        if (checker) {
-                            for (let val in prereq) {
-                                if (val == threads[ent][0][i]) {
-                                    classGet.push([threads[ent][0][i], prereq[val][0]]);
-                                }
-                            }
-                        }
-                        checker = true;
-                    }
+        choice = getThread("thread2");
+        for (let a = 0; a < threads[choice].length; a++) {
+            for (let b = 1; b < threads[choice][a].length; b++) {
+                if (!classGet.includes(threads[choice][a][b])) {
+                    classGet.push(threads[choice][a][b]);
                 }
             }
+
         }
 
-        for (let ent in threads) {
-            if (ent == "core") {
-                for (let i = 1; i < threads[ent][0].length; i++) {
-                    for (let k = 0; k < classGet.length; k++) {
-                        if (classGet[k][0] == threads[ent][0][i]) {
-                            checker = false;
-                        }
-                    }
-                    if (checker) {
-                        for (let val in prereq) {
-                            if (val == threads[ent][0][i]) {
-                                classGet.push([threads[ent][0][i], prereq[val][0]]);
-                                checker = false;
-                            }
-                        }
-                    }
-
-                    if (checker) {
-                        classGet.push([threads[ent][0][i], []]);
-                    }
-                    checker = true;
+        choice = "core";
+        for (let a = 0; a < threads[choice].length; a++) {
+            for (let b = 1; b < threads[choice][a].length; b++) {
+                if (!classGet.includes(threads[choice][a][b])) {
+                    classGet.push(threads[choice][a][b]);
                 }
             }
-        }
+
+        }        
         setClasses(classGet);
     }
 
     function checkOffer(testClass) {
-        if (takenClasses.includes(testClass[0])) {
+        if (takenClasses.includes(testClass)) {
             return false;
         }
 
-        for (let i = 0; i < testClass[1].length; i++) {
-            if (!takenClasses.includes(testClass[1][i])) {
-                return false;
+        for (let ent in prereq) {
+            if (ent == testClass) {
+                let count = prereq[testClass].length;
+                let counter = 0;
+                for (let a = 0; a < prereq[testClass].length; a++) {
+                    if (prereq[testClass][0].length == 0) {
+                        return true;
+                    }
+                    let watcher = false;
+                    for (let b = 0; b < prereq[testClass][a].length; b++) {
+                        if (takenClasses.includes(prereq[testClass][a][b])) {
+                            watcher = true;
+                        }
+                    }
+
+                    if (watcher) {
+                        counter++;
+                    }
+                }
+
+                if (counter < count) {
+                    return false;
+                }
             }
         }
+        
         return true;
     }
 
@@ -113,10 +86,9 @@ function Walkthrough() {
         const choiceGet = [];
         for (let i = 0; i < classes.length; i++) {
             if (checkOffer(classes[i])) {
-                choiceGet.push(classes[i][0]);
+                choiceGet.push(classes[i]);
             }
         }
-        console.log(classes);
         setChoices(choiceGet);
     }
 
@@ -126,7 +98,7 @@ function Walkthrough() {
         setSemesters(choiceClear);
         setTaken(choiceClear);
         setClasses(choiceClear);
-        window.location.reload();
+        /*window.location.reload();*/
     }
 
     function classSelector(text) {
@@ -163,6 +135,19 @@ function Walkthrough() {
         setChoosing(choiceClear);
         setChoices(choiceClear);
         getChoices();
+    }
+
+    function saveCurriculum () {
+        let currNew = [];
+        let num = curriculums.length + 1;
+        curriculums.push(["Curriculum " + num, [semesters]]);
+        console.log(curriculums);
+
+        setUpdater(choiceClear);
+    }
+
+    function loadCurriculum() {
+        
     }
 
     function getThread(thread) {
@@ -206,6 +191,15 @@ function Walkthrough() {
                         <input type="button" class="walkthrough-buttons" onClick={getChoices} value="Start Walkthrough" />
                         <input type="button" class="walkthrough-buttons" onClick={saveSemester} value="Save Semester" />
                         <input type="button" class="walkthrough-buttons" onClick={clearChoices} value="clear" />
+                        <input type="button" class="walkthrough-buttons" onClick={saveCurriculum} value="Save Curriculum" />
+
+                        <div>
+                            {curriculums.map((save) => (
+                                <div key={Math.random()}>
+                                    <input type="button" class="saves" value={save[0]} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
