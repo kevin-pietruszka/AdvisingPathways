@@ -98,3 +98,43 @@ Questions regarding IP should be directed to Amanda Girard at amanda.girard@lmc.
 ### Known Issues
 
 - None
+
+
+# Installation Guide
+
+## Pre-requisites
+
+### Hardware
+The device that will be running the web application will need to have a domain name that routes to the ip address of the machine and port number that the application is running on. For optimal performance, a server should host the web application. Multiple cores are recommended to be able to handle more simultaneous connections and a lot of RAM is needed in order to maintain these connections. 
+
+### Software
+The following software needs to be installed before the code can be ran in an environment:
+Node.js (https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+MySQL (https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/)
+For Node.js all that is needed is to downloaded installer match the version of your operating system. The version of Node.js should not matter since we did not use any depreciated libraries.
+For MySQL, the server version needs to be installed and only needs to run as a local host on the machine hostine the web application. Our current code uses a custom user of MySQL server (https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql) with the user: “galactic” and password: “DialgaPalkia!13”. It is highly recommended to change these values by either making a similar user or by using the default “root” user that has the password specified by installation. To change the values of user in the password to properly work in code, modify lines 11 and 12 of login.js to adjust for the user set up in the MySQL server upon installation. 
+
+## Download Instructions
+There are two options, if GIT is installed on the machine, the command “git clone https://github.com/kevin-pietruszka/AdvisingPathways.git” can be used to download the project into a directory. Otherwise, go to https://github.com/kevin-pietruszka/AdvisingPathways and press the green “Code” button and press download zip and extract the contents to a destination of your choice.
+
+## Dependencies
+All dependencies can be installed through the Node Package Manager (NPM). To install the dependencies, use the command line/terminal and navigate to the project directory (advising-pathways). Then run the command: npm install. This should automatically install all of the dependencies that are defined in the package.json file. Otherwise for the following dependencies you would have to run “npm install {dependency name} –save”:
+- async 
+- constants 
+- create-require
+- express
+- express-session
+- mysql
+- mysql2
+- react
+- react-dom
+- react-router-dom
+- react-scripts
+- survey-react
+- web-vitals. 
+
+Additionally, the command “npm install -g serve” needs to be run to install the package that will host the build of the application.
+
+## Building, Installing, and Running the Application
+To build the application, run the command: npm run build. This installs a production build to a directory named “build” that will serve the users the index.html file and the requests to webpages. The last item to do, is to run the command: serve -s build -l 3000. This will host the server on the device at port number 3000. To change the port, simply change the number 3000 to the desired port number.
+
